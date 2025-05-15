@@ -8,13 +8,26 @@
 # For each character, we shall also teach the student any words they can now create,
 # without delaying until they reach those positions by frequency.
 
-# output: word (or character)|pinyin|definition|tags|frequency
-
 require 'json'
 require 'set'
 
 @numbers = Set.new(File.readlines('numbers.txt', chomp: true))
 @radicals = Set.new(File.readlines('radicals.txt', chomp: true))
+
+# dictionary
+@dict = {}
+
+File.open('cedict_ts.u8', chomp: true).each do |line|
+  if line =~ /^(\S+)\s+(\S+)\s+\[([^\]]+)\]\s+\/(.+)\//
+    simplified  = $2
+    pinyin      = $3
+    definitions = $4
+    
+    next if @dict[simplified] and not @dict[simplified][:definitions] =~ /^(old )?variant of|surname/
+
+    @dict[simplified] = { pinyin: pinyin, definitions: definitions }
+  end
+end
 
 # map of word frequencies for ordering new words when learning a character
 @freq = {}
@@ -22,14 +35,6 @@ require 'set'
 File.readlines('subtlex-ch-wf.csv', chomp: true).each_with_index do |line, i|
   word = line.split(',')[0]
   @freq[word] ||= i # ||= in case word is a dupe... leave earlier index
-end
-
-# map of character frequencies for ordering new characters when learning a character
-# (because non-radicals are composed of other characters)
-@char_freq = {}
-
-File.readlines('char-freq.txt', chomp: true).each_with_index do |word, i|
-  @char_freq[word] ||= i # ||= in case word is a dupe... leave earlier index
 end
 
 @delayed = (3..5).inject({ 3 => Set.new, 4 => Set.new, 5 => Set.new }) do |acc, level|
@@ -72,7 +77,7 @@ end
   .map { |word| word[0] }
 
 # track which words have been learned thus far, while iterating through
-@learned = Set.new([*@numbers, "子", "儿", "儿子", "白", "万一"])
+@learned = Set.new([*@radicals, *@numbers])
 
 # the entire Set of characters which will be learned
 @learning_chars = Set.new(@learned)
@@ -83,7 +88,6 @@ end
   end
 end
 
-DECOMP_IGNORE = Set.new(%w(⿰	⿱	⿲	⿳	⿴	⿵	⿶	⿷	⿸	⿹	⿺	⿻))
 @decomp = {}
 
 # map character decompositions
@@ -91,8 +95,7 @@ File.open('chise-ids.txt').each do |line|
  _, char, decomp = line.chomp.split(/\s+/)
 
  if not decomp.nil? and decomp.length > 1
-   chars = decomp.split('').reject { |c| DECOMP_IGNORE.include?(c) }
-   @decomp[char] = chars.select { |c| @char_freq.include?(c) || @radicals.include?(c) }
+   @decomp[char] = decomp.split('')
  end
 end
 
@@ -112,6 +115,8 @@ end
 def add_character(char)
   return if @learned.include?(char)
 
+  return unless @decomp[char] or @radicals.include?(char)
+
   (@decomp[char] || []).each do |decomp_char|
     if !@learned.include?(decomp_char)
       add_character(decomp_char)
@@ -124,6 +129,9 @@ def add_character(char)
 
   find_new_words()
 end
+
+# initial find based on primary list (numbers, radicals)
+find_new_words()
 
 while @words.length > 0
   word = @words.shift
@@ -149,5 +157,7 @@ end
     @radicals.include?(word) ? "radical" : nil,
   ].compact
 
-  puts "#{word}|#{(@freq[word] || @freq.size) + 1}|#{tags.join(",")}"
+  next unless @dict[word]
+
+  puts "#{word}|#{@dict[word][:pinyin]}|#{@dict[word][:definitions]}|#{(@freq[word] || @freq.size) + 1}|#{tags.join(",")}"
 end
