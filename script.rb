@@ -1,5 +1,5 @@
 # First, student will learn the primary digit and number characters.
-# Then, student will learn the 100 most common radicals and their variants.
+# Then, student will learn the radicals and their variants.
 # From this point, student will learn the HSK vocabulary plus several "missing",
 # high frequency words (as determined by Hacking Chinese from SUBTLEX).
 # 
@@ -8,8 +8,13 @@
 # For each character, we shall also teach the student any words they can now create,
 # without delaying until they reach those positions by frequency.
 
+# output: word (or character)|pinyin|definition|tags|frequency
+
 require 'json'
 require 'set'
+
+@numbers = Set.new(File.readlines('numbers.txt', chomp: true))
+@radicals = Set.new(File.readlines('radicals.txt', chomp: true))
 
 # map of word frequencies for ordering new words when learning a character
 @freq = {}
@@ -23,7 +28,7 @@ end
 # (because non-radicals are composed of other characters)
 @char_freq = {}
 
-File.readlines('char_freq.txt', chomp: true).each_with_index do |word, i|
+File.readlines('char-freq.txt', chomp: true).each_with_index do |word, i|
   @char_freq[word] ||= i # ||= in case word is a dupe... leave earlier index
 end
 
@@ -33,8 +38,12 @@ end
 end
 
 # HSK word list
-@words = (1..5).inject([]) do |acc, level|
-  acc.push(*File.readlines("hsk#{level}.txt", chomp: true).map { |word| [word, level] })
+@hsk_level = {}
+
+@words = (1..6).inject([]) do |acc, level|
+  words = File.readlines("hsk#{level}.txt", chomp: true).map { |word| [word, level] }
+  words.each { |word| @hsk_level[word[0]] = level }
+  acc.push(*words)
 end
 
 File.readlines('hacking-chinese_missing-hsk-words.csv', chomp: true).each do |line|
@@ -42,7 +51,7 @@ File.readlines('hacking-chinese_missing-hsk-words.csv', chomp: true).each do |li
   @words << [three, 3] unless three.empty?
   @words << [four, 4] unless four.empty?
   @words << [five, 5] unless five.empty?
-  #@words << [six, 6] unless six.empty?
+  @words << [six, 6] unless six.empty?
 end
 
 # transform into a level/frequency sorted array
@@ -63,7 +72,7 @@ end
   .map { |word| word[0] }
 
 # track which words have been learned thus far, while iterating through
-@learned = Set.new(File.readlines('numbers.txt', chomp: true) + File.readlines('radicals.txt', chomp: true))
+@learned = Set.new([*@numbers, "子", "儿", "儿子", "白", "万一"])
 
 # the entire Set of characters which will be learned
 @learning_chars = Set.new(@learned)
@@ -77,23 +86,15 @@ end
 DECOMP_IGNORE = Set.new(%w(⿰	⿱	⿲	⿳	⿴	⿵	⿶	⿷	⿸	⿹	⿺	⿻))
 @decomp = {}
 
-# map each character in the dictionary to its decomposition
-File.open('dict.txt').each do |line|
-  entry = JSON.parse(line)
-  next unless @learning_chars.include?(entry['character'])
-  @decomp[entry['character']] = entry['decomposition'].split('').reject { |char| DECOMP_IGNORE.include?(char) }
-end
+# map character decompositions
+File.open('chise-ids.txt').each do |line|
+ _, char, decomp = line.chomp.split(/\s+/)
 
-# override with better source
-#File.open('cjk.txt').each do |line|
-#  arr = line.chomp.split(/\s+/)
-#
-#  unless @decomp[arr[1]] and arr[2].length == 1
-#    decomp = arr[2].split('').reject { |char| DECOMP_IGNORE.include?(char) }
-#    next if decomp.any? { |char| char =~ /[A-Za-z]/ }
-#    @decomp[arr[1]] = decomp
-#  end
-#end
+ if not decomp.nil? and decomp.length > 1
+   chars = decomp.split('').reject { |c| DECOMP_IGNORE.include?(c) }
+   @decomp[char] = chars.select { |c| @char_freq.include?(c) || @radicals.include?(c) }
+ end
+end
 
 @ordered = []
 
@@ -107,33 +108,28 @@ def find_new_words
   end
 end
 
-# add character along with any new words or chacters which can be created with it
+# add character along with any hsk words which can be created with it
 def add_character(char)
   return if @learned.include?(char)
 
-  @ordered << char
-  @learned.add(char)
-
-  find_new_words()
-
-  new_via_decomp = []
-
-  @decomp.each do |c, decomposition|
-    if !@learned.include?(c) and decomposition.include?(char) and decomposition.all? { |decomp_char| @learned.include?(decomp_char) }
-      new_via_decomp << c
+  (@decomp[char] || []).each do |decomp_char|
+    if !@learned.include?(decomp_char)
+      add_character(decomp_char)
     end
   end
 
-  new_via_decomp.sort_by { |c| @char_freq[c] || @char_freq.size }.each { |c| add_character(c) }
-end
+  @learned.add(char)
 
-# initial find based on primary list (numbers, radicals)
-find_new_words()
+  @ordered << char
+
+  find_new_words()
+end
 
 while @words.length > 0
   word = @words.shift
 
   next if @learned.include?(word)
+  next if @learned.include?(word + "儿")
 
   if word.length == 1
     add_character(word)
@@ -147,5 +143,11 @@ end
 
 # print results
 @ordered.each do |word|
-  puts word
+  tags = [
+    @hsk_level[word] ? "hsk"+@hsk_level[word].to_s : nil,
+    @numbers.include?(word) ? "number" : nil,
+    @radicals.include?(word) ? "radical" : nil,
+  ].compact
+
+  puts "#{word}|#{(@freq[word] || @freq.size) + 1}|#{tags.join(",")}"
 end

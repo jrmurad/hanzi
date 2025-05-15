@@ -1,0 +1,1 @@
+https://github.com/osfans/chise-ids/raw/refs/heads/master/IDS-UCS-Basic.txt
