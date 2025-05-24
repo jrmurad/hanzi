@@ -14,21 +14,6 @@ require 'set'
 @numbers = Set.new(File.readlines('numbers.txt', chomp: true))
 @radicals = Set.new(File.readlines('radicals.txt', chomp: true))
 
-# dictionary
-@dict = {}
-
-File.open('cedict_ts.u8', chomp: true).each do |line|
-  if line =~ /^(\S+)\s+(\S+)\s+\[([^\]]+)\]\s+\/(.+)\//
-    simplified  = $2
-    pinyin      = $3
-    definitions = $4
-    
-    next if @dict[simplified] and not @dict[simplified][:definitions] =~ /^(old )?variant of|surname/
-
-    @dict[simplified] = { pinyin: pinyin, definitions: definitions }
-  end
-end
-
 # map of word frequencies for ordering new words when learning a character
 @freq = {}
 
@@ -51,12 +36,24 @@ end
   acc.push(*words)
 end
 
+# HSK 3.0
+@hsk30_level = {}
+
+File.readlines('hsk30.csv', chomp: true).each do |line|
+  id, simplified, traditional, pinyin, pos, level = line.split(',')
+
+  level = "7" if level == "7-9"
+
+  @hsk30_level[simplified] = level.to_i
+  @words << [simplified, level.to_i] unless @hsk_level[simplified]
+end
+
 File.readlines('hacking-chinese_missing-hsk-words.csv', chomp: true).each do |line|
   three, four, five, six = line.split(',')
-  @words << [three, 3] unless three.empty?
-  @words << [four, 4] unless four.empty?
-  @words << [five, 5] unless five.empty?
-  @words << [six, 6] unless six.empty?
+  @words << [three, 3] unless three.empty? or @hsk30_level[three]
+  @words << [four, 4] unless four.empty? or @hsk30_level[four]
+  @words << [five, 5] unless five.empty? or @hsk30_level[five]
+  @words << [six, 6] unless six.empty? or @hsk30_level[six]
 end
 
 # transform into a level/frequency sorted array
@@ -152,12 +149,11 @@ end
 # print results
 @ordered.each do |word|
   tags = [
-    @hsk_level[word] ? "hsk"+@hsk_level[word].to_s : nil,
+    @hsk_level[word] ? "hsk2_"+@hsk_level[word].to_s : nil,
+    @hsk30_level[word] ? "hsk3_"+@hsk30_level[word].to_s : nil,
     @numbers.include?(word) ? "number" : nil,
     @radicals.include?(word) ? "radical" : nil,
   ].compact
 
-  next unless @dict[word]
-
-  puts "#{word}|#{@dict[word][:pinyin]}|#{@dict[word][:definitions]}|#{(@freq[word] || @freq.size) + 1}|#{tags.join(",")}"
+  puts "#{word},#{tags.join(" ")}"
 end
