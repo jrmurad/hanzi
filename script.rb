@@ -156,10 +156,28 @@ while @words_queue.length > 0
   add_to_ordered(word)
 end
 
+def find_other_hsk_level(word)
+  other_level = word.data[:level] =~ /^2_/ ? "3" : "2"
+
+  found = @words.find do |w|
+    w.data[:level] =~ /^#{other_level}_/ and w.eql?(word)
+  end
+
+  if found
+    "hsk#{found.data[:level]}"
+  end
+end
+
 # print results
 @ordered.each do |word|
+  level = word.data[:level]
+
   tags = [
     "hsk_#{word.data[:level]}",
+
+    # if there's a dupe, tag with the other HSK version level... NOTE: may be wrong for duoyinci
+    find_other_hsk_level(word),
+
     @numbers.include?(word.data[:clean]) ? "number" : nil,
     @radicals.include?(word.data[:clean]) ? "radical" : nil,
   ].compact
