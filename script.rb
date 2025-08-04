@@ -13,6 +13,43 @@
 require 'json'
 require 'set'
 
+@dict = {}
+
+# use to choose amongst duo yin ci
+@hsk_pinyin = Set.new
+
+File.readlines('hsk30.csv', chomp: true).each do |line|
+  if match = line.match(/\[(?<pinyin>[^\]]+)\]\s*\Z/)
+    @hsk_pinyin.add(match[:pinyin])
+  end
+end
+
+File.foreach('cedict_1_0_ts_utf-8_mdbg.txt', chomp: true) do |line|
+  next if line.start_with?('#') || line.strip.empty?
+
+  # CC-CEDICT format: trad simp [pinyin] /definition1/definition2/
+  if line =~ /^(\S+)\s+(\S+)\s+\[(.+?)\]\s+\/(.+)\/$/
+    trad = Regexp.last_match(1)
+    simp = Regexp.last_match(2)
+    pinyin = Regexp.last_match(3)
+    definitions = Regexp.last_match(4).split('/')
+
+    if @dict[simp]
+      first_def = @dict[simp][:definitions].first
+      
+      if first_def =~ /\A\(coll\.|classical\)|loanword|surname|variant of|used in/ or first_def =~ /\(archaic\)\Z/ or !@hsk_pinyin.include?(@dict[simp][:pinyin])
+        @dict.delete(simp)
+      end
+    end
+
+    @dict[simp] ||= {
+      trad: trad,
+      pinyin: pinyin,
+      definitions: definitions,
+    }
+  end
+end
+
 @numbers = Set.new(File.readlines('numbers.txt', chomp: true))
 @radicals = Set.new(File.readlines('radicals.txt', chomp: true))
 
@@ -21,7 +58,7 @@ require 'set'
 
 File.readlines('subtlex-ch-wf.csv', chomp: true).each_with_index do |line, i|
   word = line.split(',')[0]
-  @freq[word] ||= i # ||= in case word is a dupe... leave earlier index
+  @freq[word] ||= i.next # ||= in case word is a dupe... leave earlier index
 end
 
 @words = []
@@ -173,5 +210,9 @@ end
 
   tags.delete("component_of_0")
 
-  puts "#{word},#{tags.join(" ")}"
+  lookup = if word.length > 1 and word.end_with?("儿") then word[0..-2] else word end
+  entry = @dict[lookup]
+  definition = if entry then entry[:definitions][0..1].join("/") else "" end
+
+  puts "#{word},#{tags.join(" ")},#{definition},#{@freq[word]}"
 end
