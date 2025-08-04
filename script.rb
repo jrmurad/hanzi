@@ -3,12 +3,6 @@
 # For each word, we shall ensure that its constituent characters are learned first.
 # For each character, we shall ensure that its components are learned first.
 
-# HSK order:
-# 2.0 1-3
-# 3.0 1-4
-# 2.0 4-6
-# 3.0 5-9
-
 require 'json'
 require 'set'
 
@@ -16,47 +10,71 @@ require 'set'
 @radicals = Set.new(File.readlines('radicals.txt', chomp: true))
 
 # map character decompositions
-@decomp = {}
+DECOMP = {}
 
 File.open('chise-ids.txt').each do |line|
   _, char, decomp = line.chomp.split(/\s+/)
 
   if not decomp.nil? and decomp.length > 1
-    @decomp[char] = decomp.split('')
+    DECOMP[char] = decomp.split('')
   end
 end
 
 # map of word frequencies for ordering new words when learning a character
-@freq = {}
+FREQ = {}
 
 File.readlines('subtlex-ch-wf.csv', chomp: true).each_with_index do |line, i|
   word = line.split(',')[0]
-  @freq[word] ||= i.next # ||= in case word is a dupe... leave earlier index
+  FREQ[word] ||= i.next # ||= in case word is a dupe... leave earlier index
 end
 
 @words = []
-@hsk2_level = {}
-@hsk3_level = {}
+HSK2_LEVEL = {}
+HSK3_LEVEL = {}
+
+class WordData
+  attr_reader :data
+
+  def initialize(simplified, pinyin, definition, group, level)
+    clean = simplified.gsub(/（[^）]+）$/, '') # 过（动）
+    clean = clean.gsub(/(.)\1\｜(\1)/, '\1') # 爸爸｜爸
+    clean = clean.split('｜').first # 有时候｜有时
+
+    @data = {
+      clean: clean,
+      decomp: if clean.length === 1 then DECOMP[clean] else clean.split('') end,
+      definition: definition,
+      freq: FREQ[clean],
+      group: group,
+      hash: "#{simplified}#{pinyin}#{definition}".hash,
+      pinyin: pinyin,
+      simplified: simplified,
+    }
+
+    if level =~ /^2_(\d)/
+      HSK2_LEVEL[simplified] ||= $1
+    elsif level =~ /^3_(\d)/
+      HSK3_LEVEL[simplified] ||= $1
+    end
+  end
+
+  def eql?(other)
+    other.is_a?(WordData) and hash == other.hash
+  end
+
+  def hash
+    @data[:hash]
+  end
+
+  def to_s
+    @data.to_s
+  end
+end
 
 def add_hsk(group, level)
   File.readlines("hsk#{level}.txt", chomp: true).map do |line|
     simplified, pinyin, definition = line.split("\t")
-
-    if level =~ /^2_(\d)/
-      @hsk2_level[simplified] ||= $1
-    elsif level =~ /^3_(\d)/
-      @hsk3_level[simplified] ||= $1
-    end
-
-    {
-      chars: simplified.split(''),
-      definition: definition,
-      freq: @freq[simplified],
-      group: group,
-      hsk_level: level,
-      pinyin: pinyin,
-      simplified: simplified,
-    }
+    WordData.new(simplified, pinyin, definition, group, level)
   end
 end
 
@@ -79,75 +97,56 @@ end
 # transform into a group/frequency sorted array
 @words = @words
   .sort_by do |word|
-    [word[:group], word[:freq] || @words.length]
+    [word.data[:group], word.data[:freq] || @words.length, word.data[:pinyin]]
   end
 
-# track which words have been learned thus far, while iterating through
-@learned_words = Set.new([*@radicals, *@numbers])
+@learned = Set.new
 
-# the entire Set of characters which will be learned
-@learning_chars = Set.new(@learned_words)
+def add_character(word)
+  char = word.data[:clean]
 
-@words.each do |word|
-  word[:chars].each do |char|
-    @learning_chars.add(char)
+  throw "not a character: #{word.data[:simplified]}" unless char.length == 1
+
+  return if @learned.include?(word)
+
+  @learned.add(word)
+
+  if !@radicals.include?(char) and DECOMP[char]
+    add_components(DECOMP[char])
+  end
+
+  @ordered << word
+end
+
+def add_components(chars)
+  return unless chars
+
+  chars.each do |char|
+    hsk = @words.find { |word| word.data[:clean] == char }
+    add_character(hsk) if hsk
   end
 end
 
 @ordered = []
-
-def add_character(char)
-  return if @learned_words.include?(char)
-
-  return unless @decomp[char] or @radicals.include?(char)
-
-  (@decomp[char] || []).each do |decomp_char|
-    unless @learned_words.include?(decomp_char)
-      add_character(decomp_char)
-    end
-  end
-
-  @learned_words.add(char)
-
-  hsk = @words.find { |word| word[:simplified] == char }
-
-  @ordered << (hsk || {
-    chars: [char],
-    definition: "",
-    freq: @freq[char],
-    pinyin: "",
-    simplified: char,
-  })
-end
-
 @words_queue = @words.dup
 
 while @words_queue.length > 0
-  word_data = @words_queue.shift
-  word = word_data[:simplified]
+  word = @words_queue.shift
+  @learned.add(word)
 
-  next if @learned_words.include?(word)
-  next if @learned_words.include?(word + "儿")
-  next if word.end_with?("儿") and @learned_words.include?(word[0..-2])
+  add_components(word.data[:decomp])
 
-  if word.length == 1
-    add_character(word)
-  else
-    word.split('').each { |char| add_character(char) }
-
-    @ordered << word_data
-    @learned_words.add(word)
-  end
+  @ordered << word
 end
 
-def get_freq(word_data)
-  if level = (@hsk3_level[word_data[:simplified]] || @hsk2_level[word_data[:simplified]])
+def get_freq(word)
+  if level = (HSK2_LEVEL[word.data[:simplified]] || HSK3_LEVEL[word.data[:simplified]])
     if level.to_i < 4
       return "Elementary"
     elsif level.to_i < 7
       return "Intermediate"
     end
-  elsif freq = word_data[:freq]
+  elsif freq = word.data[:freq]
     if freq < 2250
       return "Elementary"
     elsif freq < 5500
@@ -159,43 +158,24 @@ def get_freq(word_data)
 end
 
 # print results
-@ordered.each do |word_data|
-  word = word_data[:simplified]
+@ordered.each do |word|
+  simplified = word.data[:simplified]
+  clean = word.data[:clean]
 
   tags = [
-    @hsk2_level[word] ? "hsk2_"+@hsk2_level[word] : nil,
-    @hsk3_level[word] ? "hsk3_"+@hsk3_level[word] : nil,
-    @numbers.include?(word) ? "number" : nil,
-    @radicals.include?(word) ? "radical" : nil,
+    HSK2_LEVEL[simplified] ? "hsk2_"+HSK2_LEVEL[simplified] : nil,
+    HSK3_LEVEL[simplified] ? "hsk3_"+HSK3_LEVEL[simplified] : nil,
+    @numbers.include?(clean) ? "number" : nil,
+    @radicals.include?(clean) ? "radical" : nil,
   ].compact
 
-  # if word is a character, determine how many other learning characters it is a component of
-  if word.length == 1
-    char = word
-
-    component_of = @ordered.inject(0) do |acc, word|
-      if word != char and @decomp[word] and @decomp[word].include?(char)
-        acc + 1
-      else
-        acc
-      end
-    end
-
-    tags << "component_of_#{component_of}"
-  end
-
-  # don't bother with non-HSK chars found via decomposition if not found in multiple HSK words
-  if @hsk2_level[word].nil? and @hsk3_level[word].nil? and word.length == 1 and (tags.include?("component_of_0") or tags.include?("component_of_1"))
-    next
-  end
-
-  tags.delete("component_of_0")
-
-  puts [
-    word_data[:simplified],
-    word_data[:pinyin],
-    word_data[:definition],
+  line = [
+    word.data[:simplified],
+    word.data[:pinyin],
+    word.data[:definition],
     tags.join(" "),
-    get_freq(word_data)
+    get_freq(word)
   ].join("\t")
+
+  puts line
 end

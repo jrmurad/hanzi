@@ -87,18 +87,18 @@
 关于	guānyú	about
 国家	guójiā	country
 过去	guòqù	past times
-过（动词）	guò	pass
+过（动）	guò	pass
 还是	háishì	still
 害怕	hàipà	fear
 黑板	hēibǎn	blackboard
 后来	hòulái	later
 护照	hùzhào	passport
-花（动词）	huā	spend
-花（名词）	huā	flower
+花（动）	huā	spend
+花（名）	huā	flower
 画	huà	painting
 坏	huài	bad
 欢迎	huānyíng	welcome
-还（动词）	huán	return
+还（动）	huán	return
 环境	huánjìng	environment
 换	huàn	change
 黄河	huánghé	Yellow River
@@ -275,13 +275,13 @@
 越	yuè	the more
 站	zhàn	station
 张	zhāng	sheet
-长（动词）	zhǎng	grow
+长（动）	zhǎng	grow
 着急	zháojí	worry
 照顾	zhàogù	look after
 照片	zhàopiàn	photo
 照相机	zhàoxiàngjī	camera
-只（量词）	zhī	(measure word)
-只（副词）	zhǐ	only
+只（量）	zhī	(measure word)
+只（副）	zhǐ	only
 只有……才……	zhǐyǒu…cái…	only if
 中文	zhōngwén	Chinese
 中间	zhōngjiān	middle

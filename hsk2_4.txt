@@ -83,7 +83,7 @@
 道歉	dàoqiàn	apologize
 得意	déyì	proud
 地点	dìdiǎn	location
-得（助动词）	děi	have to
+得（助、动）	děi	have to
 登机牌	dēngjīpái	boarding pass
 等 （动）	děng	wait (verb)
 低	dī	low

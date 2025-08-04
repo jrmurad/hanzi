@@ -431,7 +431,7 @@
 吊	diào	crane
 调动	diàodòng	transfer
 跌	diē	fall
-丁	dīng	
+丁	dīng	4th heavenly stem
 盯	dīng	stare at
 叮嘱	dīngzhǔ	urge again and again; exhort; warn
 定期	dìngqī	regular
@@ -1880,7 +1880,7 @@
 委托	wěituō	entrust
 委员	wěiyuán	committee member
 伪造	wěizào	forge
-喂（叹词）	wèi	hey
+喂（叹）	wèi	hey
 未免	wèimiǎn	rather
 畏惧	wèijù	fear
 卫星	wèixīng	satellite

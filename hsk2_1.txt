@@ -37,7 +37,7 @@
 和	hé	and
 在	zài	in, at
 的	de	of; ~'s (possessive particle)
-了	le	
+了	le	past tense marker
 吗	ma	(question particle for "yes-no" questions)
 呢	ne	particle indicating that a previously asked question is to be applied to the preceding word
 喂	wèi	hello
