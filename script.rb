@@ -29,8 +29,6 @@ File.readlines('subtlex-ch-wf.csv', chomp: true).each_with_index do |line, i|
 end
 
 @words = []
-HSK2_LEVEL = {}
-HSK3_LEVEL = {}
 
 class WordData
   attr_reader :data
@@ -44,16 +42,11 @@ class WordData
       definition: definition,
       freq: FREQ[clean],
       group: group,
-      hash: "#{simplified}#{pinyin}#{definition}".hash,
+      hash: "#{clean}#{pinyin}".hash,
+      level: level,
       pinyin: pinyin,
       simplified: simplified,
     }
-
-    if level =~ /^2_(\d)/
-      HSK2_LEVEL[simplified] ||= $1
-    elsif level =~ /^3_(\d)/
-      HSK3_LEVEL[simplified] ||= $1
-    end
   end
 
   def eql?(other)
@@ -98,22 +91,16 @@ end
     [word.data[:group], word.data[:freq] || @words.length, word.data[:pinyin]]
   end
 
-@learned = Set.new
-
 def add_character(word)
   char = word.data[:clean]
 
   throw "not a character: #{word.data[:simplified]}" unless char.length == 1
 
-  return if @learned.include?(word)
-
-  @learned.add(word)
-
   if !@radicals.include?(char) and DECOMP[char]
     add_components(DECOMP[char])
   end
 
-  @ordered << word
+  add_to_ordered(word)
 end
 
 def add_components(chars)
@@ -125,58 +112,56 @@ def add_components(chars)
   end
 end
 
+@learned = Set.new
+
+def add_to_ordered(word)
+  return if @learned.include?(word)
+  @learned.add(word)
+  @ordered << word
+end
+
 @ordered = []
 @words_queue = @words.dup
 
 while @words_queue.length > 0
   word = @words_queue.shift
-  @learned.add(word)
 
   clean = word.data[:clean]
+  base = clean.gsub(/[儿子了]$/, '')
+  current_group = word.data[:group]
+
+  # Pull forward any other words from the same group that contain this character as a component
+  if base.length == 1
+    same_group_words = @words_queue.select do |queue_word| 
+      queue_word.data[:group] == current_group && 
+      queue_word.data[:decomp]&.include?(base)
+    end
+    if same_group_words.any?
+      # Remove same group words from their current positions
+      same_group_words.each { |w| @words_queue.delete(w) }
+      # Add them back at the beginning of the queue
+      @words_queue.unshift(*same_group_words)
+    end
+  end
 
   # handle like 图书馆 coming before 图书, 火车站 coming before 火车, ...
   if clean.length == 3
     if hsk = @words_queue.find { |queue_word| queue_word.data[:clean] == clean[0..-2] }
       add_components(hsk.data[:decomp])
-      @ordered << hsk
+      add_to_ordered(hsk)
     end
   end
 
   add_components(word.data[:decomp])
-
-  @ordered << word
+  add_to_ordered(word)
 end
-
-def get_freq(word)
-  if level = (HSK2_LEVEL[word.data[:simplified]] || HSK3_LEVEL[word.data[:simplified]])
-    if level.to_i < 4
-      return "Elementary"
-    elsif level.to_i < 7
-      return "Intermediate"
-    end
-  elsif freq = word.data[:freq]
-    if freq < 2250
-      return "Elementary"
-    elsif freq < 5500
-      return "Intermediate"
-    end
-  end
-
-  "Advanced"
-end
-
-@written = Set.new
 
 # print results
 @ordered.each do |word|
-  simplified = word.data[:simplified]
-  clean = word.data[:clean]
-
   tags = [
-    HSK2_LEVEL[simplified] ? "hsk2_"+HSK2_LEVEL[simplified] : nil,
-    HSK3_LEVEL[simplified] ? "hsk3_"+HSK3_LEVEL[simplified] : nil,
-    @numbers.include?(clean) ? "number" : nil,
-    @radicals.include?(clean) ? "radical" : nil,
+    "hsk_#{word.data[:level]}",
+    @numbers.include?(word.data[:clean]) ? "number" : nil,
+    @radicals.include?(word.data[:clean]) ? "radical" : nil,
   ].compact
 
   line = [
@@ -184,10 +169,7 @@ end
     word.data[:pinyin],
     word.data[:definition],
     tags.join(" "),
-    get_freq(word)
   ].join("\t")
 
-  puts line unless @written.include?(line)
-
-  @written.add(line)
+  puts line
 end
