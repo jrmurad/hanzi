@@ -1,12 +1,14 @@
 # First, student will learn the primary digit and number characters.
 # Then, student will learn the radicals and their variants.
-# From this point, student will learn the HSK vocabulary plus several "missing",
-# high frequency words (as determined by Hacking Chinese from SUBTLEX).
 # 
 # For each word, we shall ensure that its constituent characters are learned first.
 # For each character, we shall ensure that its components are learned first.
-# For each character, we shall also teach the student any words they can now create,
-# without delaying until they reach those positions by frequency.
+
+# HSK order:
+# 2.0 1-3
+# 3.0 1-4
+# 2.0 4-6
+# 3.0 5-9
 
 require 'json'
 require 'set'
@@ -22,54 +24,65 @@ File.readlines('subtlex-ch-wf.csv', chomp: true).each_with_index do |line, i|
   @freq[word] ||= i # ||= in case word is a dupe... leave earlier index
 end
 
-@delayed = (3..5).inject({ 3 => Set.new, 4 => Set.new, 5 => Set.new }) do |acc, level|
-  File.readlines("delayed#{level}.txt", chomp: true).each { |word| acc[level].add(word) }
-  acc
+@words = []
+@hsk2_level = {}
+@hsk3_level = {}
+@last_group = -1
+
+def clean_word(word)
+  # take only the first characters up to whitespace, （, |, or the end of the word
+  word.split(/[\s（|]/)[0]
 end
 
-# HSK word list
-@hsk_level = {}
-
-@words = (1..6).inject([]) do |acc, level|
-  words = File.readlines("hsk#{level}.txt", chomp: true).map { |word| [word, level] }
-  words.each { |word| @hsk_level[word[0]] = level }
-  acc.push(*words)
+def add_hsk2(level)
+  @last_group += 1
+  words = File.readlines("hsk#{level}.txt", chomp: true).map { |word| clean_word(word) }
+  words.each { |word| @hsk2_level[word] ||= level }
+  words.map { |word| [word, @last_group] }
 end
 
-# HSK 3.0
-@hsk30_level = {}
+def add_hsk3(level)
+  @last_group += 1
 
-File.readlines('hsk30.csv', chomp: true).each do |line|
-  id, simplified, traditional, pinyin, pos, level = line.split(',')
+  words = []
+  
+  File.readlines('hsk30.csv', chomp: true).each do |line|
+    id, word, traditional, pinyin, pos, word_level = line.split(',')
 
-  level = "7" if level == "7-9"
+    next unless word_level.to_i == level
 
-  @hsk30_level[simplified] = level.to_i
-  @words << [simplified, level.to_i] unless @hsk_level[simplified]
+    word = clean_word(word)
+
+    @hsk3_level[word] ||= level
+
+    words << word
+  end
+
+  words.map { |word| [word, @last_group] }
 end
 
-File.readlines('hacking-chinese_missing-hsk-words.csv', chomp: true).each do |line|
-  three, four, five, six = line.split(',')
-  @words << [three, 3] unless three.empty? or @hsk30_level[three]
-  @words << [four, 4] unless four.empty? or @hsk30_level[four]
-  @words << [five, 5] unless five.empty? or @hsk30_level[five]
-  @words << [six, 6] unless six.empty? or @hsk30_level[six]
-end
+@words.push(*add_hsk2(1))
+@words.push(*add_hsk2(2))
+@words.push(*add_hsk2(3))
 
-# transform into a level/frequency sorted array
+@words.push(*add_hsk3(1))
+@words.push(*add_hsk3(2))
+@words.push(*add_hsk3(3))
+@words.push(*add_hsk3(4))
+
+@words.push(*add_hsk2(4))
+@words.push(*add_hsk2(5))
+@words.push(*add_hsk2(6))
+
+@words.push(*add_hsk3(5))
+@words.push(*add_hsk3(6))
+
+# transform into a group/frequency sorted array
 @words = @words
   .sort_by do |arr|
-    word, level = arr
+    word, group = arr
 
-    if @delayed[3].include?(word)
-      level = 3
-    elsif @delayed[4].include?(word)
-      level = 4
-    elsif @delayed[5].include?(word)
-      level = 5
-    end
-
-    [level, @freq[word] || @words.length]
+    [group, @freq[word] || @words.length]
   end
   .map { |word| word[0] }
 
@@ -89,33 +102,22 @@ end
 
 # map character decompositions
 File.open('chise-ids.txt').each do |line|
- _, char, decomp = line.chomp.split(/\s+/)
+  _, char, decomp = line.chomp.split(/\s+/)
 
- if not decomp.nil? and decomp.length > 1
-   @decomp[char] = decomp.split('')
- end
+  if not decomp.nil? and decomp.length > 1
+    @decomp[char] = decomp.split('')
+  end
 end
 
 @ordered = []
 
-# add from words list to ordered lists when word can be created from known characters
-def find_new_words
-  @words.each do |word|
-    if !@learned.include?(word) and word.length > 1 and word.split('').all? { |char| @learned.include?(char) }
-      @ordered << word
-      @learned.add(word)
-    end
-  end
-end
-
-# add character along with any hsk words which can be created with it
 def add_character(char)
   return if @learned.include?(char)
 
   return unless @decomp[char] or @radicals.include?(char)
 
   (@decomp[char] || []).each do |decomp_char|
-    if !@learned.include?(decomp_char)
+    unless @learned.include?(decomp_char)
       add_character(decomp_char)
     end
   end
@@ -123,18 +125,14 @@ def add_character(char)
   @learned.add(char)
 
   @ordered << char
-
-  find_new_words()
 end
-
-# initial find based on primary list (numbers, radicals)
-find_new_words()
 
 while @words.length > 0
   word = @words.shift
 
   next if @learned.include?(word)
   next if @learned.include?(word + "儿")
+  next if word.end_with?("儿") and @learned.include?(word[0..-2])
 
   if word.length == 1
     add_character(word)
@@ -149,11 +147,31 @@ end
 # print results
 @ordered.each do |word|
   tags = [
-    @hsk_level[word] ? "hsk2_"+@hsk_level[word].to_s : nil,
-    @hsk30_level[word] ? "hsk3_"+@hsk30_level[word].to_s : nil,
+    @hsk2_level[word] ? "hsk2_"+@hsk2_level[word].to_s : nil,
+    @hsk3_level[word] ? "hsk3_"+@hsk3_level[word].to_s : nil,
     @numbers.include?(word) ? "number" : nil,
     @radicals.include?(word) ? "radical" : nil,
   ].compact
+
+  if word.length == 1
+    char = word
+
+    component_of = @ordered.inject(0) do |acc, word|
+      if word != char and @decomp[word] and @decomp[word].include?(char)
+        acc + 1
+      else
+        acc
+      end
+    end
+
+    tags << "component_of_#{component_of}"
+  end
+
+  if @hsk2_level[word].nil? and @hsk3_level[word].nil? and word.length == 1 and (tags.include?("component_of_0") or tags.include?("component_of_1"))
+    next
+  end
+
+  tags.delete("component_of_0")
 
   puts "#{word},#{tags.join(" ")}"
 end
