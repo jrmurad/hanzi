@@ -37,8 +37,6 @@ class WordData
 
   def initialize(simplified, pinyin, definition, group, level)
     clean = simplified.gsub(/（[^）]+）$/, '') # 过（动）
-    clean = clean.gsub(/(.)\1\｜(\1)/, '\1') # 爸爸｜爸
-    clean = clean.split('｜').first # 有时候｜有时
 
     @data = {
       clean: clean,
@@ -134,6 +132,16 @@ while @words_queue.length > 0
   word = @words_queue.shift
   @learned.add(word)
 
+  clean = word.data[:clean]
+
+  # handle like 图书馆 coming before 图书, 火车站 coming before 火车, ...
+  if clean.length == 3
+    if hsk = @words_queue.find { |queue_word| queue_word.data[:clean] == clean[0..-2] }
+      add_components(hsk.data[:decomp])
+      @ordered << hsk
+    end
+  end
+
   add_components(word.data[:decomp])
 
   @ordered << word
@@ -157,6 +165,8 @@ def get_freq(word)
   "Advanced"
 end
 
+@written = Set.new
+
 # print results
 @ordered.each do |word|
   simplified = word.data[:simplified]
@@ -177,5 +187,7 @@ end
     get_freq(word)
   ].join("\t")
 
-  puts line
+  puts line unless @written.include?(line)
+
+  @written.add(line)
 end

@@ -387,7 +387,7 @@
 那（连）	nà	then; in that case
 那会儿	nà huìr	at that time; then
 那么	nà me	like that; in that way
-那时候｜那时	nà shí hou ｜ nà shí	at that time
+那时候	nà shí hou	at that time
 那样	nà yàng	that kind; like that; such
 南方	nán fāng	south
 难过	nánguò	sorry
@@ -719,7 +719,7 @@
 照片	zhàopiàn	photo
 照相	zhào xiàng	take a picture; take a photograph
 这么	zhè me	so; such; this way; like this
-这时候｜这时	zhè shí hou ｜ zhè shí	at this moment; at this time
+这时候	zhè shí hou	at this moment; at this time
 这样	zhè yàng	so; such; like this; this way
 真正	zhēnzhèng	real
 正常	zhèngcháng	normal

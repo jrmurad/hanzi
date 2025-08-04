@@ -1,7 +1,7 @@
 爱	ài	love
 爱好	ài hào	hobby
 八	bā	eight
-爸爸｜爸	bàba ｜ bà	dad
+爸爸	bàba	dad
 吧	ba	(modal particle indicating suggestion or surmise)
 白（形）	bái 	white
 白天	bái tiān	day
@@ -71,7 +71,7 @@
 地方	dìfang	local
 地上	dì shàng	on the ground
 地图	dìtú	map
-弟弟｜弟	dì di ｜ dì	younger brother
+弟弟	dì di	younger brother
 第（第二）	dì （ dì èr ）	auxiliary word for ordinal numbers (second )
 点	diǎn	spot
 电	diàn	electricity
@@ -115,7 +115,7 @@
 高	gāo	high
 高兴	gāoxìng	happy
 告诉	gàosu	tell
-哥哥｜哥	gē ge ｜ gē	elder brother
+哥哥	gē ge	elder brother
 歌	gē	song
 个	gè	individual
 给	gěi	give
@@ -175,7 +175,7 @@
 教	jiāo	teach
 叫（动）	jiào	call; be called
 教学楼	jiào xué lóu	teaching building
-姐姐｜姐	jiě jie ｜ jiě	elder sister
+姐姐	jiě jie	elder sister
 介绍	jièshào	introduce
 今年	jīn nián	this year
 今天	jīntiān	today
@@ -221,7 +221,7 @@
 路	lù	road
 路口	lù kǒu	intersection; crossing
 路上	lù shàng	on the road
-妈妈｜妈	mā ma ｜ mā	mom; mother
+妈妈	mā ma	mom; mother
 马路	mǎ lù	road; street
 马上	mǎshàng	right off
 吗	ma	(question particle for "yes-no" questions)
@@ -234,7 +234,7 @@
 没什么	méi shén me	it's nothing
 没事儿	méi shìr	it's okay
 没有	méi yǒu	have not; no
-妹妹｜妹	mèi mei ｜ mèi	younger sister
+妹妹	mèi mei	younger sister
 门	mén	door
 门口	mén kǒu	doorway
 门票	mén piào	tickets
@@ -441,7 +441,7 @@
 有	yǒu	have
 有的	yǒu de	some
 有名	yǒumíng	famous
-有时候｜有时	yǒu shí hòu ｜ yǒu shí	sometimes
+有时候	yǒu shí hòu	sometimes
 有（一）些	yǒu （ yì ） xiē	some
 有用	yǒu yòng	useful
 右	yòu	right
