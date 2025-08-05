@@ -1,4 +1,4 @@
-啊 	a	ah
+啊	a	ah
 爱情	àiqíng	love
 爱人	ài rén	lover
 安静	ānjìng	be quiet
@@ -115,7 +115,7 @@
 得	dé	get
 得出	dé chū	obtain results; reach conclusion
 的话	de huà	if
-得	de	get
+得	dé	get
 灯	dēng	lamp
 等（助、名）	děng	etc.; and so on
 等到	děng dào	wait until; by the time
@@ -212,7 +212,7 @@
 海边	hǎi biān	seaside
 喊	hǎn	shout
 好（副）	hǎo	well; fine; okay
-好处	hǎochu	benefit
+好处	hǎochù	benefit
 好多	hǎo duō	many; a lot of
 好久	hǎo jiǔ	for a long time; long
 好人	hǎo rén	good person

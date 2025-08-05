@@ -3,8 +3,8 @@
 安全	ānquán	security
 按时	ànshí	on time
 按照	ànzhào	according to
-百分之 	bǎifēnzhī	percent
-棒 	bàng	stick；excellent
+百分之	bǎifēnzhī	percent
+棒	bàng	stick；excellent
 包子	bāozi	steamed stuffed bun
 保护	bǎohù	protect
 保证	bǎozhèng	ensure
@@ -175,7 +175,7 @@
 厚	hòu	thick
 后悔	hòuhuǐ	regret
 护士	hùshi	nurse
-互联网 	hùliánwǎng	Internet
+互联网	hùliánwǎng	Internet
 互相	hùxiāng	each other
 怀疑	huáiyí	doubt
 回忆	huíyì	memory
@@ -258,11 +258,11 @@
 肯定	kěndìng	sure
 空	kōng	empty
 空气	kōngqì	air
-恐怕	kǒngpà	i'm afraid
+恐怕	kǒngpà	I'm afraid
 苦	kǔ	bitter
 矿泉水	kuàngquánshuǐ	mineral water
 困	kùn	sleepy
-困难	kùnnan	difficulty
+困难	kùnnán	difficulty
 拉	lā	pull
 垃圾桶	lājītǒng	trash
 辣	là	spicy
@@ -485,7 +485,7 @@
 性别	xìngbié	gender
 性格	xìnggé	character
 幸福	xìngfú	happiness
-修理 	xiūlǐ	repair
+修理	xiūlǐ	repair
 许多	xǔduō	many
 学期	xuéqī	semester
 压力	yālì	pressure
@@ -592,7 +592,7 @@
 租	zū	rent
 最好	zuìhǎo	best
 尊重	zūnzhòng	respect
-左右 	zuǒyòu	about
+左右	zuǒyòu	about
 座	zuò	seat
 作家	zuòjiā	writer
 座位	zuòwèi	seat

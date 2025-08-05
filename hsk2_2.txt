@@ -20,14 +20,14 @@
 已经	yǐjīng	already
 一起	yìqǐ	together
 再	zài	again
-就	jiǜ	at once
+就	jiù	at once
 因为……所以……	yīnwèi…suǒyǐ…	because…so…
 虽然……但是……	suīrán…dànshì…	although… but…
 从	cóng	from
 比	bǐ	comparing to
 往	wǎng	toward, to
 离	lí	indicate the distance between two objects
-得	de	get
+得	dé	get
 着	zhe	in the process of
 过	guò	pass
 吧	ba	(modal particle indicating suggestion or surmise)
@@ -35,8 +35,8 @@
 教室	jiàoshì	classroom
 房间	fángjiān	room
 路	lù	road
-左边	zuǒbiān	left
-右边	yòubiān	right
+左边	zuǒbian	left
+右边	yòubian	right
 外	wài	outside
 旁边	pángbiān	side
 一下	yīxià	in a short while
@@ -67,7 +67,7 @@
 药	yào	medicine
 手机	shǒujī	cellphone
 手表	shǒubiǎo	watch
-眼睛	yǎnjīng	eye
+眼睛	yǎnjing	eye
 身体	shēntǐ	body
 公共汽车	gōnggòngqìchē	bus
 报纸	bàozhǐ	newspaper
@@ -81,11 +81,11 @@
 票	piào	ticket
 意思	yìsi	meaning
 颜色	yánsè	color
-铅笔	qiánbǐ	pencil
+铅笔	qiānbǐ	pencil
 面条	miàntiáo	noodle
 火车站	huǒchēzhàn	train station
 公司	gōngsī	company
-宾馆	bīngguǎn	hotel
+宾馆	bīnguǎn	hotel
 说话	shuōhuà	talk
 卖	mài	sell
 问	wèn	ask
@@ -121,8 +121,8 @@
 踢足球	tīzúqiú	play footbal
 打篮球	dǎlánqiú	play basketball
 完	wán	finish
-觉得	juédé	think
-知道	zhīdao	know
+觉得	juéde	think
+知道	zhīdào	know
 希望	xīwàng	hope
 可以	kěyǐ	can
 要	yào	want

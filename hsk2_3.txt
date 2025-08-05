@@ -20,7 +20,7 @@
 笔记本	bǐjìběn	notebook
 必须	bìxū	must
 变化	biànhuà	change
-别人	biéren	others
+别人	biérén	others
 冰箱	bīngxiāng	refrigerator
 菜单	càidān	menu
 参加	cānjiā	participate in
@@ -88,7 +88,7 @@
 国家	guójiā	country
 过去	guòqù	past times
 过（动）	guò	pass
-还是	háishì	still
+还是	háishi	still
 害怕	hàipà	fear
 黑板	hēibǎn	blackboard
 后来	hòulái	later

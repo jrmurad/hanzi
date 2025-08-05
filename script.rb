@@ -1,13 +1,12 @@
-# Assume student has already the radicals, their variants, digits, and other numeric characters.
-# 
-# For each word, we shall ensure that its constituent characters are learned first.
-# For each character, we shall ensure that its components are learned first.
+# For each word, we ensure that its constituent characters are learned first,
+# when those are themselves HSK words. For each character, we shall do likewise
+# with components.
 
 require 'json'
 require 'set'
 
-@numbers = Set.new(File.readlines('numbers.txt', chomp: true))
-@radicals = Set.new(File.readlines('radicals.txt', chomp: true))
+NUMBERS = Set.new(File.readlines('numbers.txt', chomp: true))
+RADICALS = Set.new(File.readlines('radicals.txt', chomp: true))
 
 # map character decompositions
 DECOMP = {}
@@ -96,7 +95,7 @@ def add_character(word)
 
   throw "not a character: #{word.data[:simplified]}" unless char.length == 1
 
-  if !@radicals.include?(char) and DECOMP[char]
+  if !RADICALS.include?(char) and DECOMP[char]
     add_components(DECOMP[char])
   end
 
@@ -121,32 +120,31 @@ def add_to_ordered(word)
 end
 
 @ordered = []
-@words_queue = @words.dup
 
-while @words_queue.length > 0
-  word = @words_queue.shift
+while @words.length > 0
+  word = @words.shift
 
   clean = word.data[:clean]
   base = clean.gsub(/[儿子了]$/, '')
-  current_group = word.data[:group]
 
-  # Pull forward any other words from the same group that contain this character as a component
+  # pull forward any other words from the same group that contain this character as a component
   if base.length == 1
-    same_group_words = @words_queue.select do |queue_word| 
-      queue_word.data[:group] == current_group && 
+    same_group_words = @words.select do |queue_word| 
+      queue_word.data[:group] == word.data[:group] && 
       queue_word.data[:decomp]&.include?(base)
     end
+
     if same_group_words.any?
-      # Remove same group words from their current positions
-      same_group_words.each { |w| @words_queue.delete(w) }
-      # Add them back at the beginning of the queue
-      @words_queue.unshift(*same_group_words)
+      # remove same group words from their current positions
+      same_group_words.each { |w| @words.delete(w) }
+      # add them back at the beginning of the queue
+      @words.unshift(*same_group_words)
     end
   end
 
   # handle like 图书馆 coming before 图书, 火车站 coming before 火车, ...
   if clean.length == 3
-    if hsk = @words_queue.find { |queue_word| queue_word.data[:clean] == clean[0..-2] }
+    if hsk = @words.find { |queue_word| queue_word.data[:clean] == clean[0..-2] }
       add_components(hsk.data[:decomp])
       add_to_ordered(hsk)
     end
@@ -178,16 +176,14 @@ end
     # if there's a dupe, tag with the other HSK version level... NOTE: may be wrong for duoyinci
     find_other_hsk_level(word),
 
-    @numbers.include?(word.data[:clean]) ? "number" : nil,
-    @radicals.include?(word.data[:clean]) ? "radical" : nil,
+    NUMBERS.include?(word.data[:clean]) ? "number" : nil,
+    RADICALS.include?(word.data[:clean]) ? "radical" : nil,
   ].compact
 
-  line = [
+  puts [
     word.data[:simplified],
     word.data[:pinyin],
     word.data[:definition],
     tags.join(" "),
   ].join("\t")
-
-  puts line
 end

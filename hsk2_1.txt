@@ -1,8 +1,8 @@
 我	wǒ	I, me
 我们	wǒmen	we, us (pl.)
 你	nǐ	you
-他	 tā 	he, him
-她	 tā 	she, her
+他	tā	he, him
+她	tā	she, her
 这 (这儿)	zhè ( zhèr)	this (here)
 那 (那儿)	nà (nàr)	that (there)
 哪	nǎ	which
@@ -46,8 +46,8 @@
 饭店	fàndiàn	restaurant
 商店	shāngdiàn	store
 医院	yīyuàn	hospital
-中国	Zhōngguò	China
-北京	Běijīng	Beijing
+中国	zhōngguó	China
+北京	běijīng	Beijing
 上	shàng	up
 下	xià	down
 前面	qiánmiàn	front
@@ -70,7 +70,7 @@
 爸爸	bàba	father
 妈妈	māma	mother
 儿子	érzi	son
-女儿	nǚér	daughter
+女儿	nǚ'ér	daughter
 老师	lǎoshī	teacher
 学生	xuéshēng	student
 同学	tóngxué	classmate
@@ -104,11 +104,11 @@
 桌子	zhuōzi	desk
 椅子	yǐzi	chair
 谢谢	xièxie	thank
-不客气	búkèqì	you are welcome
+不客气	búkèqì	you're welcome
 再见	zàijiàn	good-bye
 请	qǐng	please
-对不起	duìbùqǐ	sorry
-没关系	méiguānxì	it doesn't matter
+对不起	duìbuqǐ	I'm sorry
+没关系	méiguānxi	it doesn't matter
 是	shì	be (am, is, are)
 有	yǒu	have
 看	kàn	look
@@ -124,7 +124,7 @@
 吃	chī	eat
 喝	hē	drink
 睡觉	shuìjiào	sleep
-打电话	dǎdiànhuà	make phone call
+打电话	dǎ diànhuà	make phone call
 做	zuò	do
 买	mǎi	buy
 开	kāi	open

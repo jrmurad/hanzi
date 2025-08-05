@@ -435,7 +435,7 @@
 类	lèi	class; category; kind; type
 类似	lèisì	similar
 离婚	líhūn	divorce
-里面	lǐ miàn	inside; interior
+里面	lǐmiàn	inside; interior
 理发	lǐfà	haircut
 理解	lǐjiě	understand
 理论	lǐlùn	theory
@@ -907,7 +907,7 @@
 直播	zhíbō	on live
 直到	zhí dào	until
 值	zhí	value; be worth
-值得	zhíde	worth
+值得	zhídé	worth
 职工	zhí gōng	staff; worker
 职业	zhíyè	occupation
 只好	zhǐhǎo	have to

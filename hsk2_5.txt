@@ -74,7 +74,7 @@
 处理	chǔlǐ	handle
 传染	chuánrǎn	contagion
 传统	chuántǒng	tradition
-闯	chuǎng	 rush; dash
+闯	chuǎng	rush; dash
 吹	chuī	blow
 此外	cǐwài	in addition
 次要	cìyào	secondary
@@ -254,7 +254,7 @@
 谨慎	jǐnshèn	cautious
 进步	jìnbù	progress
 近代	jìndài	modern
-尽量	jìnliàng	as far as possible
+尽量	jǐnliàng	as far as possible
 精神	jīngshén	spirit
 经典	jīngdiǎn	classics; scriptures
 救	jiù	save
@@ -571,7 +571,7 @@
 预报	yùbào	prediction
 预防	yùfáng	prevention
 圆	yuán	circular
-元旦	uándàn	New Year's Day
+元旦	yuándàn	New Year's Day
 员工	yuángōng	employee
 愿望	yuànwàng	desire, wish
 晕	yūn	faint
@@ -1112,7 +1112,7 @@
 投入	tóurù	put into
 透明	tòumíng	transparent
 土地	tǔdì	land
-吐	tù	spit
+吐	tǔ	spit
 团	tuán	group
 推广	tuīguǎng	extension
 退步	tuìbù	backward

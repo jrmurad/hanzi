@@ -1,9 +1,9 @@
 爱	ài	love
-爱好	ài hào	hobby
+爱好	àihào	hobby
 八	bā	eight
 爸爸	bàba	dad
 吧	ba	(modal particle indicating suggestion or surmise)
-白（形）	bái 	white
+白（形）	bái	white
 白天	bái tiān	day
 百	bǎi	hundred
 班	bān	class
@@ -11,25 +11,25 @@
 半年	bàn nián	half a year
 半天	bàn tiān	half day
 帮	bāng	help
-帮忙	bāng máng	help
+帮忙	bāngmáng	help
 包	bāo	package
-包子	bāo zi	bun
+包子	bāozi	bun
 杯	bēi	cup
-杯子	bēi zi	cup
+杯子	bēizi	cup
 北	běi	north
 北边	běi biān	north side
-北京	běi jīng	Beijing
-本（量）	běn 	(measure word for books or volumes)
+北京	běijīng	Beijing
+本（量）	běn	(measure word for books or volumes)
 本子	běn zi	book
 比	bǐ	particle used for comparison
 别（副）	bié	don't
 别的	bié de	other
-别人	bié·rén	other people
+别人	biérén	other people
 病	bìng	disease
 病人	bìng rén	patient
 不大	bú dà	not big
 不对	bú duì	wrong
-不客气	bú kè qì	you're welcome
+不客气	búkèqì	you're welcome
 不用	bú yòng	no need to
 不	bù	no
 菜	cài	dish
@@ -38,7 +38,7 @@
 常	cháng	often
 常常	cháng cháng	often
 唱	chàng	sing
-唱歌	chàng gē	sing
+唱歌	chànggē	sing
 车	chē	car
 车票	chē piào	ticket
 车上	chē shàng	in the car
@@ -50,12 +50,12 @@
 出去	chū qù	go out
 穿	chuān	wear
 床	chuáng	bed
-次（量）	cì 	(measure word for times, frequency)
+次（量）	cì	(measure word for times, frequency)
 从	cóng	from
 错	cuò	wrong
-打（动）	dǎ 	hit, take
+打（动）	dǎ	hit, take
 打车	dǎ chē	take a taxi
-打电话	dǎ diàn huà	make a phonecall
+打电话	dǎ diànhuà	make a phonecall
 打开	dǎ kāi	turn on
 打球	dǎ qiú	play ball
 大	dà	large, big
@@ -71,7 +71,7 @@
 地方	dìfang	local
 地上	dì shàng	on the ground
 地图	dìtú	map
-弟弟	dì di	younger brother
+弟弟	dìdi	younger brother
 第（第二）	dì （ dì èr ）	auxiliary word for ordinal numbers (second )
 点	diǎn	spot
 电	diàn	electricity
@@ -90,9 +90,9 @@
 读	dú	read
 读书	dú shū	reading; study
 对（形）	duì	right
-对不起	duìbuqǐ	i'm sorry
+对不起	duìbuqǐ	I'm sorry
 多（形、代）	duō	many; much; more
-多少	duōshao	how much
+多少	duōshǎo	how much
 饿	è	hungry
 儿子	érzi	son
 二	èr	two
@@ -114,8 +114,8 @@
 干什么	gàn shén me	what to do
 高	gāo	high
 高兴	gāoxìng	happy
-告诉	gàosu	tell
-哥哥	gē ge	elder brother
+告诉	gàosù	tell
+哥哥	gēge	elder brother
 歌	gē	song
 个	gè	individual
 给	gěi	give
@@ -164,7 +164,7 @@
 鸡蛋	jīdàn	egg
 几	jǐ	several
 记	jì	remember
-记得	jìdé	remember
+记得	jìde	remember
 记住	jì zhù	remember; keep in mind
 家	jiā	home
 家里	jiā lǐ	in the home
@@ -175,7 +175,7 @@
 教	jiāo	teach
 叫（动）	jiào	call; be called
 教学楼	jiào xué lóu	teaching building
-姐姐	jiě jie	elder sister
+姐姐	jiějie	elder sister
 介绍	jièshào	introduce
 今年	jīn nián	this year
 今天	jīntiān	today
@@ -221,7 +221,7 @@
 路	lù	road
 路口	lù kǒu	intersection; crossing
 路上	lù shàng	on the road
-妈妈	mā ma	mom; mother
+妈妈	māma	mom; mother
 马路	mǎ lù	road; street
 马上	mǎshàng	right off
 吗	ma	(question particle for "yes-no" questions)
@@ -234,7 +234,7 @@
 没什么	méi shén me	it's nothing
 没事儿	méi shìr	it's okay
 没有	méi yǒu	have not; no
-妹妹	mèi mei	younger sister
+妹妹	mèimei	younger sister
 门	mén	door
 门口	mén kǒu	doorway
 门票	mén piào	tickets
@@ -261,7 +261,7 @@
 男	nán	man
 男孩儿	nán háir	boy
 男朋友	nán péng yǒu	boyfriend
-男人	nán ren	man
+男人	nánrén	man
 男生	nán shēng	boy
 南	nán	south
 南边	nán biān	south; south side
@@ -277,11 +277,11 @@
 女儿	nǚ'ér	daughter
 女孩儿	nǚ háir	girl
 女朋友	nǚ péng yǒu	girlfriend
-女人	nǚ ren	woman
+女人	nǚrén	woman
 女生	nǚ shēng	girl
 旁边	pángbiān	side
 跑	pǎo	run
-朋友	péngyou	friend
+朋友	péngyǒu	friend
 票	piào	ticket
 七	qī	seven
 起	qǐ	get up; start; rise
@@ -371,7 +371,7 @@
 玩儿	wánr	play
 晚	wǎn	late
 晚饭	wǎn fàn	dinner
-晚上	wǎnshang	night
+晚上	wǎnshàng	night
 网上	wǎng shàng	online
 网友	wǎng yǒu	net friend
 忘	wàng	forget
@@ -385,7 +385,7 @@
 西边	xī biān	west; west side
 洗	xǐ	wash
 洗手间	xǐshǒujiān	restroom
-喜欢	xǐhuan	like
+喜欢	xǐhuān	like
 下（名、动）	xià	below; under; next; go down; get off
 下班	xià bān	get off work
 下边	xià biān	below; under
@@ -416,7 +416,7 @@
 行	xíng	that's ok
 休息	xiūxi	rest
 学	xué	learn; study
-学生	xuésheng	student
+学生	xuéshēng	student
 学习	xuéxí	study
 学校	xuéxiào	school
 学院	xué yuàn	college; academy
@@ -456,7 +456,7 @@
 在家	zài jiā	at home
 早	zǎo	early
 早饭	zǎo fàn	breakfast
-早上	zǎoshang	morning
+早上	zǎoshàng	morning
 怎么	zěnme	how
 站（名）	zhàn	station
 找	zhǎo	look for
