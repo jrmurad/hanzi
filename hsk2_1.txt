@@ -101,7 +101,7 @@
 书	shū	book
 汉语	hànyǔ	Mandarin Chinese
 字	zì	character
-桌子	zhuōzi	desk
+桌子	zhuōzi	table
 椅子	yǐzi	chair
 谢谢	xièxie	thank
 不客气	búkèqì	you're welcome
