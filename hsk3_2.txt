@@ -110,7 +110,7 @@
 到处	dàochù	everywhere
 倒	dào	inverted
 道	dào	road; way; path
-道理	dàolǐ	truth
+道理	dàolǐ	reason
 道路	dào lù	road; way; path
 得	dé	get
 得出	dé chū	obtain results; reach conclusion
@@ -418,7 +418,7 @@
 平安	píng'ān	sound and safe
 平常	píngcháng	usual
 平等	píngděng	equality
-平时	píngshí	peacetime
+平时	píngshí	normally
 瓶	píng	bottle
 瓶子	píngzi	bottle
 普通	pǔ tōng	ordinary; general; average; common
@@ -630,7 +630,7 @@
 选	xuǎn	choose; select; pick
 学期	xuéqī	semester
 雪	xuě	snow
-颜色	yánsè	colour
+颜色	yánsè	color
 眼	yǎn	eye
 眼睛	yǎnjing	eye
 养	yǎng	raise; keep; support; cultivate
@@ -673,8 +673,8 @@
 银行	yínháng	bank
 银行卡	yín háng kǎ	bank card
 应该	yīnggāi	should
-英文	yīng wén	english
-英语	yīng yǔ	english
+英文	yīng wén	English
+英语	yīng yǔ	English
 影片	yǐng piàn	film; movie
 影响	yǐngxiǎng	influence
 永远	yǒngyuǎn	forever

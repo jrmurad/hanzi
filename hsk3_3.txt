@@ -70,7 +70,7 @@
 才能	cái néng	talent; ability; gift
 采取	cǎiqǔ	take, adpopt
 采用	cǎi yòng	put to use; adopt; use; employ
-彩色	cǎi sè	multicolour; colour
+彩色	cǎi sè	multicolor; color
 曾经	céngjīng	once
 产生	chǎnshēng	produce
 长城	chángchéng	the Great Wall
@@ -419,7 +419,7 @@
 课程	kèchéng	curriculum
 空	kōng	empty
 空调	kōngtiáo	air conditioner
-恐怕	kǒngpà	i'm afraid
+恐怕	kǒngpà	I'm afraid
 空儿	kòngr	free time
 裤子	kùzi	trousers
 快速	kuài sù	fast; high-speed
@@ -672,7 +672,7 @@
 手指	shǒuzhǐ	finger
 首都	shǒudū	capital
 首先	shǒuxiān	first
-受	shòu	be subjecte; suffer; receive; accept; stand
+受	shòu	be subjected; suffer; receive; accept; stand
 受伤	shòushāng	injured
 书架	shūjià	bookshelf
 输	shū	lose

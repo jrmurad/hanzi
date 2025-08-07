@@ -96,7 +96,7 @@
 耽误	dānwu	delay
 淡	dàn	light
 倒霉	dǎoméi	fall on evil days
-道理	dàolǐ	truth
+道理	dàolǐ	reason
 登记	dēngjì	register
 等于	děngyú	be equal to
 滴	dī	drop
@@ -993,7 +993,7 @@
 批	pī	batch
 批准	pīzhǔn	approval
 疲劳	píláo	fatigue
-匹	pǐ	horse (meaure word)
+匹	pǐ	horse (measure word)
 片	piàn	slice
 飘	piāo	gone with the wind
 频道	píndào	channel

@@ -187,7 +187,7 @@
 点名	diǎn míng	rollcall; mention sb. by name
 电灯	diàn dēng	electric light
 电动车	diàn dòng chē	electric car
-电梯	diàntī	elevator.
+电梯	diàntī	elevator
 电源	diànyuán	power supply
 顶	dǐng	top
 定	dìng	decide; fix; book; order; calm; stable
@@ -305,7 +305,7 @@
 含量	hán liàng	content
 含义	hányì	signification; meanings
 含有	hán yǒu	contain; have
-寒假	hánjià	the winter vacation
+寒假	hánjià	winter vacation
 寒冷	hán lěng	cold; frigid; chill; frigidity
 行业	hángyè	industry
 航班	hángbān	flight
@@ -324,9 +324,9 @@
 忽视	hūshì	ignore
 户	hù	household; family; door
 护士	hùshi	nurse
-花（形）	huā	multicoloured; coloured; flowery
+花（形）	huā	multicolored; colored; flowery
 划	huá	paddle, row
-划	huà	transfer, assign, differenciate
+划	huà	transfer, assign, differentiate
 怀念	huáiniàn	miss
 怀疑	huáiyí	doubt
 缓解	huǎnjiě	relieve
@@ -607,7 +607,7 @@
 伞	sǎn	umbrella
 散	sàn	break up; disperse; distribute; disseminate; give out
 扫	sǎo	sweep; broom
-色	sè	colour; look; expression; scene; quality
+色	sè	color; look; expression; scene; quality
 色彩	sècǎi	color
 森林	sēnlín	forest
 晒	shài	the sun
@@ -768,7 +768,7 @@
 无数	wúshù	countless
 无所谓	wúsuǒwèi	cannot be designated as
 无限	wú xiàn	infinite; limitless; unlimited
-五颜六色	wǔ yán liù sè	colourful; multicolored
+五颜六色	wǔ yán liù sè	colorful; multicolored
 误会	wùhuì	misunderstanding
 西瓜	xīguā	watermelon
 吸	xī	inhale; breathe; absorb; suck in

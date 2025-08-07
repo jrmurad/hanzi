@@ -48,7 +48,7 @@
 地方	dìfang	local
 地铁	dìtiě	metro
 地图	dìtú	map
-电梯	diàntī	elevator.
+电梯	diàntī	elevator
 电子邮件	diànzǐyóujiàn	email
 东	dōng	east
 冬	dōng	winter
@@ -64,7 +64,7 @@
 发烧	fāshāo	have a fever
 发现	fāxiàn	find, discover
 方便	fāngbiàn	convenient
-放	fàng	discharge
+放	fàng	put (something somewhere)
 放心	fàngxīn	don't worry
 分	fēn	minute
 附近	fùjìn	nearby
@@ -130,7 +130,7 @@
 经过	jīngguò	after, through
 经理	jīnglǐ	manager
 久	jiǔ	long
-旧	jiù	old,used
+旧	jiù	old, used
 句子	jùzi	sentence
 决定	juédìng	decision
 渴	kě	thirsty
@@ -150,7 +150,7 @@
 脸	liǎn	face
 聊天	liáotiān	chat
 练习	liànxí	practice
-辆	liàng	car
+辆	liàng	car (measure word)
 了解	liǎojiě	understand
 邻居	línjū	neighbor
 留学	liúxué	overseas study

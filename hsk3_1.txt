@@ -100,7 +100,7 @@
 饭店	fàndiàn	restaurant
 房间	fángjiān	room
 房子	fáng zi	house; building
-放	fàng	discharge
+放	fàng	put (something somewhere)
 放假	fàng jià	holiday; have a holiday
 放学	fàng xué	off school
 飞	fēi	fly

@@ -163,7 +163,7 @@
 过程	guòchéng	process
 海洋	hǎiyáng	ocean
 害羞	hàixiū	shy
-寒假	hánjià	the winter vacation
+寒假	hánjià	winter vacation
 汗	hàn	sweat
 航班	hángbān	flight
 好处	hǎochù	benefit
@@ -328,7 +328,7 @@
 篇	piān	piece
 骗	piàn	fool
 乒乓球	pīngpāngqiú	table tennis
-平时	píngshí	peacetime
+平时	píngshí	normally
 破	pò	broken
 葡萄	pútao	grape
 普遍	pǔbiàn	universal

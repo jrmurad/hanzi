@@ -42,7 +42,7 @@ class WordData
       freq: FREQ[clean],
       group: group,
       hash: "#{clean}#{pinyin}".hash,
-      level: level,
+      levels: Set.new([level]),
       pinyin: pinyin,
       simplified: simplified,
     }
@@ -64,7 +64,7 @@ end
 def add_hsk(group, level)
   File.readlines("hsk#{level}.txt", chomp: true).map do |line|
     simplified, pinyin, definition = line.split("\t")
-    WordData.new(simplified, pinyin, definition, group, level)
+    WordData.new(simplified, pinyin.downcase.gsub(/\s/, ''), definition, group, level) # TODO remove apostrophes?
   end
 end
 
@@ -114,7 +114,12 @@ end
 @learned = Set.new
 
 def add_to_ordered(word)
-  return if @learned.include?(word)
+  if @learned.include?(word)
+    existing = @ordered.find { |o| o.eql?(word) }
+    existing.data[:levels].merge(word.data[:levels])
+    return
+  end
+
   @learned.add(word)
   @ordered << word
 end
@@ -154,28 +159,12 @@ while @words.length > 0
   add_to_ordered(word)
 end
 
-def find_other_hsk_level(word)
-  other_level = word.data[:level] =~ /^2_/ ? "3" : "2"
-
-  found = @words.find do |w|
-    w.data[:level] =~ /^#{other_level}_/ and w.eql?(word)
-  end
-
-  if found
-    "hsk#{found.data[:level]}"
-  end
-end
-
 # print results
 @ordered.each do |word|
   level = word.data[:level]
 
   tags = [
-    "hsk_#{word.data[:level]}",
-
-    # if there's a dupe, tag with the other HSK version level... NOTE: may be wrong for duoyinci
-    find_other_hsk_level(word),
-
+    *word.data[:levels].to_a.map { |level| "hsk#{level}" }.sort,
     NUMBERS.include?(word.data[:clean]) ? "number" : nil,
     RADICALS.include?(word.data[:clean]) ? "radical" : nil,
   ].compact

@@ -1196,7 +1196,7 @@
 炉灶	lúzào	a kitchen stove
 轮船	lúnchuán	ship
 轮廓	lúnkuò	outline
-轮胎	lúntāi	tyre
+轮胎	lúntāi	tire
 论坛	lùntán	forum
 论证	lùnzhèng	demonstration
 啰唆	luōsuo	troublesome, wordy
@@ -2441,7 +2441,7 @@
 庄严	zhuāngyán	solemn
 庄重	zhuāngzhòng	grand; superb
 庄稼	zhuāngjia	crops
-幢	zhuàng	building (meaure word)
+幢	zhuàng	building (measure word)
 壮观	zhuàngguān	grand; sublime
 壮丽	zhuànglì	magnificent
 壮烈	zhuàngliè	brave; heroic
